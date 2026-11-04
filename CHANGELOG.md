@@ -6,6 +6,11 @@ Better Armorstands is versioned semantically (`MAJOR.MINOR.PATCH`).
 It runs on Minecraft 26.3, 26.2 and 26.1 (Fabric + Forge + NeoForge, Java 25) and requires
 [Mycel](https://github.com/MyCelium-GG/MyCel-Lib) (`my.celium.org`).
 
+## [1.0.1] - 2026-11-04
+
+### Fixed
+- With the mod on the client, armor stands without arms (vanilla ones, or summoned with `ShowArms:0b`) were drawn with arms anyway. Only how they looked was wrong; the stands themselves were fine.
+
 ## [1.0.0] - 2026-11-04
 
 ### Added

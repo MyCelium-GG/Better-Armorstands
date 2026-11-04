@@ -20,7 +20,7 @@ import my.celium.org.network.PacketDefinition;
 public final class BetterArmorstandsMod {
     public static final String ID = "betterarmorstands";
 
-    public static final ModMetadata META = ModMetadata.builder(ID, "Better Armorstands", "1.0.0")
+    public static final ModMetadata META = ModMetadata.builder(ID, "Better Armorstands", "1.0.1")
             .author("MyCelium")
             .website("https://www.curseforge.com/minecraft/mc-mods/better-armorstands")
             .updateUrl("https://wiki.mycelium-gg.org/updates/betterarmorstands.json")

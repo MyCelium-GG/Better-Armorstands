@@ -21,7 +21,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 abstract class ArmorStandMixin {
     @Inject(method = "<init>(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V", at = @At("TAIL"))
     private void betterarmorstands$arms(EntityType<? extends ArmorStand> type, Level level, CallbackInfo ci) {
-        StandActions.onCreated((ArmorStand) (Object) this);
+        // Server only: the client gets the real value from the server, but only when it differs
+        // from vanilla's "no arms", so setting it here would show arms on stands that have none.
+        if (level != null && !level.isClientSide()) {
+            StandActions.onCreated((ArmorStand) (Object) this);
+        }
     }
 
     @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
