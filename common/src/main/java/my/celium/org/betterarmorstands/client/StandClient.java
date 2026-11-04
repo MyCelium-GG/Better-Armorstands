@@ -32,7 +32,7 @@ public final class StandClient {
     private static final double MAX_DISTANCE = 8;
 
     /** Ticks after letting go of R during which server rotation updates are ignored. */
-    private static final int SETTLE_TICKS = 10;
+    private static final int SETTLE_TICKS = 20;
 
     private static ArmorStand target;
     private static float yaw;
@@ -75,6 +75,10 @@ public final class StandClient {
 
     /** Sets the stand's rotation with no interpolation, so it follows the mouse exactly. */
     private static void apply(ArmorStand stand, float angle) {
+        // A server update that was already sliding the stand would otherwise pull it back.
+        if (stand instanceof Interpolating interpolating) {
+            interpolating.betterarmorstands$stopInterpolation();
+        }
         stand.setYRot(angle);
         stand.yRotO = angle;
         stand.setYBodyRot(angle);
