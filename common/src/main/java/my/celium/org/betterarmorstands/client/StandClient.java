@@ -31,10 +31,19 @@ public final class StandClient {
     private static final float SNAP = 15F;
     private static final double MAX_DISTANCE = 8;
 
+    /** Ticks after letting go of R during which server rotation updates are ignored. */
+    private static final int SETTLE_TICKS = 10;
+
     private static ArmorStand target;
     private static float yaw;
     private static float sent;
     private static int previewTicks;
+    /** The stand turned last, and how long ago R was released. */
+    private static int settlingId = -1;
+    private static int settleTicks;
+    /** The stand the hint was shown for, so looking at one stand shows it once. */
+    private static int hintedId = -1;
+    private static int hintCooldown;
 
     private StandClient() {
     }
@@ -44,9 +53,34 @@ public final class StandClient {
         return target != null;
     }
 
-    /** Called from the camera hook with the mouse's horizontal movement. */
+    /** Called from the camera hook with the mouse's horizontal movement, every frame it moves. */
     public static void addMouse(double dx) {
         yaw += (float) dx * MOUSE_TO_DEGREES;
+        ArmorStand stand = target;
+        if (stand != null) {
+            LocalPlayer player = Minecraft.getInstance().player;
+            apply(stand, shown(player != null && player.isShiftKeyDown()));
+        }
+    }
+
+    /** Whether server rotation updates for {@code entityId} should be ignored right now. */
+    public static boolean holdsRotation(int entityId) {
+        ArmorStand stand = target;
+        return stand != null && stand.getId() == entityId || entityId == settlingId && settleTicks > 0;
+    }
+
+    private static float shown(boolean snap) {
+        return Mth.wrapDegrees(snap ? Math.round(yaw / SNAP) * SNAP : yaw);
+    }
+
+    /** Sets the stand's rotation with no interpolation, so it follows the mouse exactly. */
+    private static void apply(ArmorStand stand, float angle) {
+        stand.setYRot(angle);
+        stand.yRotO = angle;
+        stand.setYBodyRot(angle);
+        stand.yBodyRotO = angle;
+        stand.setYHeadRot(angle);
+        stand.yHeadRotO = angle;
     }
 
     /** Runs every client tick on every loader. */
@@ -56,10 +90,17 @@ public final class StandClient {
             target = null;
             return;
         }
+        if (settleTicks > 0) {
+            settleTicks--;
+        }
         if (TURN_KEY.isDown()) {
             turnTick(minecraft, player);
         } else {
-            target = null;
+            if (target != null) {
+                settlingId = target.getId();
+                settleTicks = SETTLE_TICKS;
+                target = null;
+            }
             previewTick(minecraft, player);
         }
     }
@@ -78,12 +119,9 @@ public final class StandClient {
             target = null;
             return;
         }
-        float shown = player.isShiftKeyDown() ? Math.round(yaw / SNAP) * SNAP : yaw;
-        shown = Mth.wrapDegrees(shown);
-        // Turn the stand here right away; the server confirms the same angle.
-        target.setYRot(shown);
-        target.setYBodyRot(shown);
-        target.setYHeadRot(shown);
+        float shown = shown(player.isShiftKeyDown());
+        // Keeps the stand where the mouse put it; the server gets the same angle below.
+        apply(target, shown);
         if (Math.abs(Mth.wrapDegrees(shown - sent)) > 0.05F) {
             sent = shown;
             MycelNetwork.sendToServer(BetterArmorstandsMod.turnPacket, new TurnPacket(target.getId(), shown));
@@ -98,11 +136,31 @@ public final class StandClient {
         if (previewTicks > 0) {
             previewTicks--;
         }
-        if (!player.isShiftKeyDown() || !player.getMainHandItem().isEmpty() || previewTicks > 0) {
-            return;
+        if (hintCooldown > 0) {
+            hintCooldown--;
         }
         ArmorStand looked = lookedAt(minecraft);
         if (looked == null || looked.isMarker() || !ClientHooks.serverHasMod()) {
+            if (looked == null && hintCooldown == 0) {
+                hintedId = -1;
+            }
+            return;
+        }
+        if (!player.isShiftKeyDown()) {
+            // Once per stand you look at: how to turn it and how to pose it.
+            if (looked.getId() != hintedId) {
+                hintedId = looked.getId();
+                hintCooldown = 100;
+                player.sendOverlayMessage(TextUtil.empty()
+                        .append(TextUtil.muted("Hold "))
+                        .append(TextUtil.hex(TURN_KEY.getTranslatedKeyMessage().getString(), TextUtil.BRIGHT))
+                        .append(TextUtil.muted(" to turn"))
+                        .append(TextUtil.faint("  \u00B7  "))
+                        .append(TextUtil.muted("Sneak + click: next pose")));
+            }
+            return;
+        }
+        if (!player.getMainHandItem().isEmpty() || previewTicks > 0) {
             return;
         }
         previewTicks = 10;
