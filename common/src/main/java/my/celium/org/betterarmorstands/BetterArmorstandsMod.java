@@ -22,7 +22,7 @@ public final class BetterArmorstandsMod {
 
     public static final ModMetadata META = ModMetadata.builder(ID, "Better Armorstands", "1.0.0")
             .author("MyCelium")
-            .website("https://wiki.mycelium-gg.org/mods/betterarmorstands")
+            .website("https://www.curseforge.com/minecraft/mc-mods/better-armorstands")
             .updateUrl("https://wiki.mycelium-gg.org/updates/betterarmorstands.json")
             .build();
 
