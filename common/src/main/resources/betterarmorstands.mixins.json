@@ -9,7 +9,9 @@
   ],
   "client": [
     "client.EntityTurnMixin",
-    "client.EntityInterpolationMixin"
+    "client.EntityInterpolationMixin",
+    "client.ArmorStandModelMixin",
+    "client.ArmorStandRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

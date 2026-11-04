@@ -63,6 +63,15 @@ public final class StandClient {
         }
     }
 
+    /** The angle to draw {@code stand} at while it is being turned, or {@code null}. */
+    public static Float renderAngle(ArmorStand stand) {
+        if (stand != target) {
+            return null;
+        }
+        LocalPlayer player = Minecraft.getInstance().player;
+        return shown(player != null && player.isShiftKeyDown());
+    }
+
     /** Whether server rotation updates for {@code entityId} should be ignored right now. */
     public static boolean holdsRotation(int entityId) {
         ArmorStand stand = target;
