@@ -10,11 +10,11 @@ import net.minecraft.server.level.ServerPlayer;
 /**
  * Anonymous stats for the FastStats project {@code better-armorstands}, sent through Mycel under
  * its consent: which poses get used and how (click or redstone), how often stands are turned and
- * base plates toggled, and the settings. No token yet: until one is set, nothing is registered.
+ * base plates toggled, and the settings.
  */
 public final class StandStats {
-    /** Project token from faststats.dev; empty until the project exists. */
-    private static final String TOKEN = "";
+    /** Project token from faststats.dev (public, ships in the jar). */
+    private static final String TOKEN = "21604c01bde5cea9fef295cd8e29e555";
 
     private static volatile ModStats stats;
     /** Players who turned a stand recently, so one long R drag counts once. */

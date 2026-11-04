@@ -16,3 +16,4 @@ It runs on Minecraft 26.3, 26.2 and 26.1 (Fabric + Forge + NeoForge, Java 25) an
 - Hold R while looking at a stand and move the mouse to turn it; sneak for 15 degree steps (mod on the client).
 - While sneaking at a stand, the action bar shows its pose and the next one (mod on the client).
 - A cleaner armor stand texture: warm oak with grain and outlines, a polished stone base (mod on the client).
+- Anonymous stats (which poses get used and how stands get turned) so we know what to improve. They follow your answer on Mycel's stats screen; nothing else is asked. What is sent: https://wiki.mycelium-gg.org/privacy#stats-betterarmorstands
