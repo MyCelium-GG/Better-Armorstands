@@ -6,6 +6,8 @@ and a cleaner look. Runs on the server: players without the mod still get the
 poses, arms and base plate; with the mod on the client too they also get R,
 the pose preview and the new texture.
 
+![All 13 armor stand poses side by side](https://wiki.mycelium-gg.org/betterarmorstands/img/poses.png)
+
 Built on [Mycel](https://github.com/MyCelium-GG/MyCel-Lib) (`my.celium.org`), the shared
 core for the MyCelium ecosystem.
 
@@ -44,6 +46,8 @@ are turned, the settings, and errors in its own code) to its FastStats project
 through Mycel. It follows Mycel's choice exactly: the one-time screen in your own
 game, `shareStats` / `shareErrors` in `config/mycel.json` on servers.
 Details: https://wiki.mycelium-gg.org/privacy#stats-betterarmorstands
+
+![Three armor stands without base plates in diamond, netherite and gold armor](https://wiki.mycelium-gg.org/betterarmorstands/img/display.png)
 
 ## Configuration (`config/betterarmorstands.json`)
 
