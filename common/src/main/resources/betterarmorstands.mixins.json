@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "my.celium.org.betterarmorstands.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ArmorStandMixin",
+    "LivingEntityMixin"
+  ],
+  "client": [
+    "client.EntityTurnMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
