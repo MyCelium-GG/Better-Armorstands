@@ -82,12 +82,26 @@ public final class StandClient {
         return Mth.wrapDegrees(snap ? Math.round(yaw / SNAP) * SNAP : yaw);
     }
 
+    /**
+     * Cancels the entity's running interpolation. Through reflection because
+     * {@code InterpolationHandler} is a class on 26.1/26.2 and an interface on 26.3, so a direct
+     * call compiled for one line breaks on the other.
+     */
+    private static void stopInterpolation(ArmorStand stand) {
+        try {
+            Object handler = stand.getClass().getMethod("getInterpolation").invoke(stand);
+            if (handler != null) {
+                handler.getClass().getMethod("cancel").invoke(handler);
+            }
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            // Turning still works; a stale server update may just nudge the stand.
+        }
+    }
+
     /** Sets the stand's rotation with no interpolation, so it follows the mouse exactly. */
     private static void apply(ArmorStand stand, float angle) {
         // A server update that was already sliding the stand would otherwise pull it back.
-        if (stand instanceof Interpolating interpolating) {
-            interpolating.betterarmorstands$stopInterpolation();
-        }
+        stopInterpolation(stand);
         stand.setYRot(angle);
         stand.yRotO = angle;
         stand.setYBodyRot(angle);
