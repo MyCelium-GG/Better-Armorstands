@@ -13,6 +13,8 @@
   <a href="https://github.com/MyCelium-GG/Better-Armorstands/blob/main/LICENSE"><img src="https://img.shields.io/github/license/MyCelium-GG/Better-Armorstands?style=flat-square&color=F2C14E" alt="License"></a>
 </p>
 
+<a href="https://www.curseforge.com/minecraft/mc-mods/mycel"><img src="https://raw.githubusercontent.com/MyCelium-GG/Better-Armorstands/efc7318d9e91/docs/img/banners/mycel-required.svg" alt="Mycel is required: this mod needs the Mycel library to run. Install Mycel next to it, for the same Minecraft version and loader. Download it from CurseForge." width="100%"></a>
+
 ![About the mod](https://raw.githubusercontent.com/MyCelium-GG/Better-Armorstands/0aaeb5cda03d/docs/img/banners/about-the-mod.svg)
 
 <img src="https://raw.githubusercontent.com/MyCelium-GG/Better-Armorstands/0aaeb5cda03d/docs/img/banners/about.svg" alt="Better Armorstands The 13 poses from Bedrock Edition, arms on every new stand, hold R and move the mouse to turn one, shears for the base plate, and a cleaner look. Runs on the server: players without the mod still get the poses, arms and base plate; with the mod on the client too they also get R, the pose preview and the new texture." width="100%">
