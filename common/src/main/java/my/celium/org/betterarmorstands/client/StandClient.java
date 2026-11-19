@@ -154,9 +154,10 @@ public final class StandClient {
             MycelNetwork.sendToServer(BetterArmorstandsMod.turnPacket, new TurnPacket(target.getId(), shown));
         }
         player.sendOverlayMessage(TextUtil.empty()
-                .append(TextUtil.muted("Turning  "))
+                .append(TextUtil.muted(BetterArmorstandsMod.LANG.get(player, "turn.turning") + "  "))
                 .append(TextUtil.hex(Math.floorMod(Math.round(shown), 360) + "°", TextUtil.BRIGHT))
-                .append(TextUtil.faint(player.isShiftKeyDown() ? "  15° steps" : "  sneak for 15° steps")));
+                .append(TextUtil.faint("  " + BetterArmorstandsMod.LANG.get(player,
+                        player.isShiftKeyDown() ? "turn.steps" : "turn.sneak_for_steps"))));
     }
 
     private static void previewTick(Minecraft minecraft, LocalPlayer player) {
@@ -179,11 +180,10 @@ public final class StandClient {
                 hintedId = looked.getId();
                 hintCooldown = 100;
                 player.sendOverlayMessage(TextUtil.empty()
-                        .append(TextUtil.muted("Hold "))
-                        .append(TextUtil.hex(TURN_KEY.getTranslatedKeyMessage().getString(), TextUtil.BRIGHT))
-                        .append(TextUtil.muted(" to turn"))
+                        .append(TextUtil.coloredHex(BetterArmorstandsMod.LANG.text(player, "hint.hold_to_turn",
+                                TextUtil.hex(TURN_KEY.getTranslatedKeyMessage().getString(), TextUtil.BRIGHT)), TextUtil.MUTED))
                         .append(TextUtil.faint("  \u00B7  "))
-                        .append(TextUtil.muted("Sneak + click: next pose")));
+                        .append(TextUtil.muted(BetterArmorstandsMod.LANG.get(player, "hint.next_pose"))));
             }
             return;
         }
@@ -191,7 +191,7 @@ public final class StandClient {
             return;
         }
         previewTicks = 10;
-        player.sendOverlayMessage(BetterArmorstandsText.preview(Poses.indexOf(looked), Poses.next(looked)));
+        player.sendOverlayMessage(BetterArmorstandsText.preview(player, Poses.indexOf(looked), Poses.next(looked)));
     }
 
     private static ArmorStand lookedAt(Minecraft minecraft) {

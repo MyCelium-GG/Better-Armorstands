@@ -16,6 +16,9 @@ abstract class ArmorStandRendererMixin {
     @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/decoration/ArmorStand;Lnet/minecraft/client/renderer/entity/state/ArmorStandRenderState;F)V",
             at = @At("TAIL"))
     private void betterarmorstands$liveAngle(ArmorStand stand, ArmorStandRenderState state, float partialTick, CallbackInfo ci) {
+        if (!my.celium.org.betterarmorstands.ModGate.on()) {
+            return;
+        }
         Float angle = StandClient.renderAngle(stand);
         if (angle != null) {
             ((LivingEntityRenderState) state).bodyRot = angle;

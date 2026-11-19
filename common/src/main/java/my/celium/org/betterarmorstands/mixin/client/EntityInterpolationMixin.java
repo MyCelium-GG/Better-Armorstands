@@ -22,7 +22,7 @@ abstract class EntityInterpolationMixin {
             "moveOrInterpolateTo(Lnet/minecraft/world/phys/Vec3;)V",
             "moveOrInterpolateTo(Ljava/util/Optional;Ljava/util/Optional;Ljava/util/Optional;)V"}, at = @At("HEAD"), cancellable = true)
     private void betterarmorstands$holdTurn(CallbackInfo ci) {
-        if (StandClient.holdsRotation(((Entity) (Object) this).getId())) {
+        if (my.celium.org.betterarmorstands.ModGate.on() && StandClient.holdsRotation(((Entity) (Object) this).getId())) {
             ci.cancel();
         }
     }

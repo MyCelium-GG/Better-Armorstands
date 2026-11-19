@@ -25,4 +25,6 @@ Look at a stand, hold **R** and move your mouse. The stand turns smoothly, your 
 ## Server friendly
 The poses, arms and base plate work for every player on a server with the mod, even without the mod on their client. Players with the mod also get R, the pose preview and the new look.
 
+In 11 languages: English, German, Spanish, French, Dutch, Brazilian Portuguese, Russian, Polish, Italian, Japanese and Simplified Chinese.
+
 Requires [Mycel](https://www.curseforge.com/minecraft/mc-mods/mycel). Fabric, Forge and NeoForge, Minecraft 26.1 to 26.3. [Wiki](https://wiki.mycelium-gg.org/betterarmorstands/) · [Discord](https://discord.gg/UvQNsKWMp3)

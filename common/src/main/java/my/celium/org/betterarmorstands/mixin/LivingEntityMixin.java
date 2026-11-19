@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 abstract class LivingEntityMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void betterarmorstands$redstone(CallbackInfo ci) {
-        if ((Object) this instanceof ArmorStand stand && !stand.level().isClientSide() && stand.tickCount % 4 == 0) {
+        if (my.celium.org.betterarmorstands.ModGate.on() && (Object) this instanceof ArmorStand stand && !stand.level().isClientSide() && stand.tickCount % 4 == 0) {
             StandActions.redstoneTick(stand);
         }
     }

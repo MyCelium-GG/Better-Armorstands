@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 abstract class EntityTurnMixin {
     @Inject(method = "turn", at = @At("HEAD"), cancellable = true)
     private void betterarmorstands$turnStand(double yRot, double xRot, CallbackInfo ci) {
-        if ((Object) this == Minecraft.getInstance().player && StandClient.isTurning()) {
+        if (my.celium.org.betterarmorstands.ModGate.on() && (Object) this == Minecraft.getInstance().player && StandClient.isTurning()) {
             StandClient.addMouse(yRot);
             ci.cancel();
         }

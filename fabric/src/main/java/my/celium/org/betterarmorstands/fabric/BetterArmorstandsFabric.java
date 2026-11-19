@@ -8,6 +8,13 @@ import net.fabricmc.api.ModInitializer;
 public final class BetterArmorstandsFabric implements ModInitializer {
     @Override
     public void onInitialize() {
+        if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("mycel")) {
+            my.celium.org.betterarmorstands.MissingMycel.logOnce();
+            net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents.JOIN.register(
+                    (handler, sender, server) -> my.celium.org.betterarmorstands.MissingMycel.tell(handler.getPlayer()));
+            return;
+        }
+        my.celium.org.betterarmorstands.ModGate.open();
         BetterArmorstandsMod.init();
         // The packet may be registered after Mycel's own entrypoint ran.
         FabricNetworking.flush();

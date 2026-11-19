@@ -21,6 +21,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 abstract class ArmorStandMixin {
     @Inject(method = "<init>(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V", at = @At("TAIL"))
     private void betterarmorstands$arms(EntityType<? extends ArmorStand> type, Level level, CallbackInfo ci) {
+        if (!my.celium.org.betterarmorstands.ModGate.on()) {
+            return;
+        }
         // Server only: the client gets the real value from the server, but only when it differs
         // from vanilla's "no arms", so setting it here would show arms on stands that have none.
         if (level != null && !level.isClientSide()) {
@@ -31,6 +34,9 @@ abstract class ArmorStandMixin {
     @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
     private void betterarmorstands$interact(Player player, InteractionHand hand, Vec3 location,
             CallbackInfoReturnable<InteractionResult> cir) {
+        if (!my.celium.org.betterarmorstands.ModGate.on()) {
+            return;
+        }
         ArmorStand stand = (ArmorStand) (Object) this;
         if (stand.level().isClientSide() && !my.celium.org.betterarmorstands.ClientHooks.serverHasMod()) {
             return;
@@ -45,7 +51,7 @@ abstract class ArmorStandMixin {
     @Redirect(method = "readAdditionalSaveData", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/level/storage/ValueInput;getBooleanOr(Ljava/lang/String;Z)Z"))
     private boolean betterarmorstands$armsDefault(ValueInput input, String key, boolean fallback) {
-        if ("ShowArms".equals(key)) {
+        if ("ShowArms".equals(key) && my.celium.org.betterarmorstands.ModGate.on()) {
             return input.getBooleanOr(key, StandActions.armsByDefault());
         }
         return input.getBooleanOr(key, fallback);

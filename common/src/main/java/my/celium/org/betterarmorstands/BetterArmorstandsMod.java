@@ -5,6 +5,7 @@ import my.celium.org.config.ConfigBuilder;
 import my.celium.org.config.ConfigValue;
 import my.celium.org.config.MycelConfig;
 import my.celium.org.metadata.ModMetadata;
+import my.celium.org.translation.ModLang;
 import my.celium.org.network.MycelNetwork;
 import my.celium.org.network.PacketDefinition;
 
@@ -20,7 +21,10 @@ import my.celium.org.network.PacketDefinition;
 public final class BetterArmorstandsMod {
     public static final String ID = "betterarmorstands";
 
-    public static final ModMetadata META = ModMetadata.builder(ID, "Better Armorstands", "1.0.1")
+    /** Texts in each player's language (assets/betterarmorstands/lang). */
+    public static final ModLang LANG = ModLang.of("betterarmorstands", BetterArmorstandsMod.class);
+
+    public static final ModMetadata META = ModMetadata.builder(ID, "Better Armorstands", "1.1.0")
             .author("MyCelium")
             .website("https://www.curseforge.com/minecraft/mc-mods/better-armorstands")
             .updateUrl("https://wiki.mycelium-gg.org/updates/betterarmorstands.json")

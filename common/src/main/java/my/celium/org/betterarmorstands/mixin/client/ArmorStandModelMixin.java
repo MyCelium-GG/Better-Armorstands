@@ -24,6 +24,9 @@ abstract class ArmorStandModelMixin {
 
     @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/ArmorStandRenderState;)V", at = @At("TAIL"))
     private void betterarmorstands$anchorBasePlate(ArmorStandRenderState state, CallbackInfo ci) {
+        if (!my.celium.org.betterarmorstands.ModGate.on()) {
+            return;
+        }
         basePlate.yRot = (float) Math.toRadians(-((LivingEntityRenderState) state).bodyRot);
     }
 }

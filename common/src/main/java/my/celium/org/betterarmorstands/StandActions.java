@@ -58,7 +58,7 @@ public final class StandActions {
                     stand.setArmorStandPose(next.pose());
                     stand.playSound(SoundEvents.ARMOR_STAND_HIT, 0.5F, 1.4F);
                     if (player instanceof ServerPlayer serverPlayer) {
-                        serverPlayer.sendOverlayMessage(BetterArmorstandsText.pose(next));
+                        serverPlayer.sendOverlayMessage(BetterArmorstandsText.pose(serverPlayer, next));
                     }
                     StandStats.count("pose_click");
                     StandStats.count("poses", next.id());
